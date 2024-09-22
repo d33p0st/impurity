@@ -1,0 +1,17 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "modstore"
+version = "0.1"
+description = "Basic and Moded data structures with rust backend for speed."
+dependencies = ["maturin"]
+
+[tool.maturin]
+python-source = "pysrc"
+module-name = "modstore._binaries"
+include = ["pysrc/**/*.pyi"]
+
+[project.urls]
+GitHub = "https://github.com/d33p0st/modstore"
