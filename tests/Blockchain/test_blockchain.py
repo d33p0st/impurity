@@ -1,5 +1,5 @@
 
-from modstore.rust.blockchain import BlockChain
+from modstore.rust import BlockChain
 
 class obj3:
     def __init__(self):
