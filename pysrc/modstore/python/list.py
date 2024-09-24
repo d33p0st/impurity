@@ -1,10 +1,13 @@
-from typing import Type, Union, Any, Literal
-from itertools import chain
+from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic
+from itertools import chain, combinations
+from collections import Counter, defaultdict
 
 from .stack import Stack, StackOverFlow
 from ..exceptions import TypeCastError
 
-class List(list):
+T = TypeVar('T')
+
+class List(list, Generic[T]):
 
     """`Modded List Class`"""
     def __str__(self) -> str:
@@ -208,3 +211,107 @@ class List(list):
         `"""
         seen = set()
         return List(x for x in self if not (x in seen or seen.add(x)))
+
+    def filter(self, type: Type) -> 'List':
+        """`Returns a List with only given types`
+        
+        `For Example`: There is a list, say, `[1, 2, 3, "abc", "xyz", 5, 10, "hello"]`
+        and you want to filter out all the strings as a list.
+        """
+        return List(x for x in self if isinstance(x, type))
+    
+    def interleave(self, *Lists: Union['List', list]) -> 'List':
+        """`Interleave the current list with other lists.`
+        
+        `NOTE`: This does not modify the current list.
+        """
+        return List(chain.from_iterable(zip(self, *Lists)))
+    
+    def work(self, func: Callable, store_elements: bool = False) -> 'List':
+        """`Apply a function to each element in the list and return a new List.`
+        
+        ### Params
+        - `func`: Any Function that takes one input and returns one input. Input type depends on what the
+        current list is made of and subjective.
+        - `store_elements`: set it to True if the callable function returns bool and you want to store values that returns True.
+        """
+        return List(func(x) for x in self) if not store_elements else List(x for x in self if func(x))
+    
+    @property
+    def counter(self) -> dict:
+        """`Returns a dict whose keys are the list elements and values contain their counts`"""
+        return dict(Counter(self))
+    
+    @property
+    def remove_duplicates(self) -> None:
+        """`Remove Duplicates in place.`"""
+        seen = set()
+        self[:] = [x for x in self if not (x in seen or seen.add(x))]
+    
+    def swap(self, i: int, j: int):
+        """`Swap two indexes.`
+        
+        Make sure the indexes exist, else raises IndexError.
+        """
+        self[i], self[j] = self[j], self[i]
+    
+    def partition(self, predicate: Callable) -> tuple['List', 'List']:
+        """`Partition the List based on some function.`
+        
+        ### Params
+        - `predicate`: A callable function that takes values according to the type stored in the current List
+        and returns bool.
+
+        `NOTE`: Returns the List that returns True for `predicate` fist.
+
+        ### Usage
+
+        ```
+        >>> from modstore.python import List
+        
+        >>> def check(val: int) -> bool:
+        ...     if val > 10:
+        ...         return True
+        ...     return False
+        ...
+
+        >>> some_list = List()
+        >>> some_list.extend([1, 20, 3, 40, 5]) # fill the List in any way
+
+        >>> List_of_nums_greater_than_10, List_of_nums_less_than_10 = some_list.partition(predicate=check)
+        # this will return [1, 3, 5] and [20, 40].
+        ```
+        """
+        return List(x for x in self if predicate(x)), List(x for x in self if not predicate(x))
+
+    def combinations(self, n: int) -> 'List':
+        """`Returns a combination of all elements.`
+        
+        Similar to `itertools.combinations`
+        """
+        return List(combinations(self, n))
+    
+    @property
+    def reverse(self) -> None:
+        """`In Place reverse`"""
+        self[:] = self[::-1]
+    
+    @property
+    def isPalindrome(self) -> bool:
+        """`Returns True if palindrome else False`"""
+        return self[:] == self[::-1]
+
+    @property
+    def group_anagrams(self) -> 'List[str]':
+        """`Returns a List of anagrams where anagrams of same word are grouped together.`"""
+        data = defaultdict(List)
+
+        for x in self:
+            sorted_ = ''.join(sorted(x, key=lambda x: ord(x)))
+            data[sorted_].append(x)
+        
+        return List(data.values())
+    
+    def merge_sorted(self, other_list: Union[list, 'List'], key = None) -> 'List':
+        """`Merge two arrays and sort it.`"""
+        return List(sorted(self + other_list, key=key))

@@ -1,3 +1,5 @@
+[![Unit Tests](https://github.com/d33p0st/modstore/actions/workflows/tests.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/tests.yml)
+
 # Overview
 
 `modstore` brings about the speed python lacked while implementing complex `Data Structures`. `modstore` upgrades pre-existing `Data Structures` to the point you can laid back and use `pre-built` complex functions. While still keeping the base Structures, `modstore` introduces better and improves ones such as `BlockChain`, `DAG` and much more.
@@ -17,3 +19,6 @@ Leveraging `Rust`'s speed and safety, new `Data Structures` are lightning fast a
   - [DAG](/docs/DAG/dag.md): Directed Acyclic Graphs is a graph with no cycles, used in certain blockchain variants like [IOTA](https://www.iota.org). Create and manipulate and store Network Like data in DAGs. See docs [here](/docs/DAG/dag.md).
 
 - Python
+  
+  - Stack
+  - List
