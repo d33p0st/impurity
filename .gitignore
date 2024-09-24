@@ -73,7 +73,8 @@ docs/_build/
 
 # PyBuilder
 .pybuilder/
-target/
+target/*
+!target/wheels
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -162,3 +163,4 @@ cython_debug/
 #.idea/
 
 *.lock
+.DS_Store
