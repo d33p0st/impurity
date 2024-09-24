@@ -27,7 +27,7 @@ class Block:
         """`Unique Identifier of the Block`"""
         return self.block.get_identifier()
     
-    def data(self, return_original: bool = False) -> str | bytes | object:
+    def data(self, return_original: bool = False) -> Union[str, bytes, object]:
         data = self.block.get_data()
         if type(data) == str:
             return data
@@ -85,7 +85,7 @@ class BlockChain:
         """`Convert any converted (object -> bytes) back to object`"""
         return pickle.loads(bytes)
 
-    def addBlock(self, uniqueIdentifier: str, data: object | str | bytes) -> None:
+    def addBlock(self, uniqueIdentifier: str, data: Union[object, str, bytes]) -> None:
         """`Add a block of data to the blockchain.`
         
         `uniqueIdentifier`: Unique Identifier for this block and its data.

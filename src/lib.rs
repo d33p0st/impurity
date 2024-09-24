@@ -9,5 +9,7 @@ fn rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<blockchain::BlockChain>()?;
     m.add_class::<blockchain::Block>()?;
     m.add_class::<dag::DAG>()?;
+    m.add_class::<dag::DAGChain>()?;
+    m.add_class::<dag::Transaction>()?;
     Ok(())
 }

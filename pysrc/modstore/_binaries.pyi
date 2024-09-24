@@ -54,7 +54,7 @@ class BlockChain:
         """
         ...
     
-    def addblock(self, data_identifier: str, data: str | bytes) -> None:
+    def addblock(self, data_identifier: str, data: Union[str, bytes]) -> None:
         """`Add a block of data to the blockchain.`
         
         `data_identifier`: Unique Identifier for this block and its data.
@@ -109,4 +109,46 @@ class DAG:
     
     def list_edges(self) -> list[tuple[str, str]]:
         """`Returns a list of tuple(str, str) representing edges.`"""
+        ...
+
+class Transaction:
+    """`Do not instantiate this class. It is a Place Holder`"""
+    def get_data(self) -> object:
+        """`Returns the Transaction Data`"""
+        ...
+    
+    def get_id(self) -> str:
+        """`Returns the Transaction id.`"""
+        ...
+    
+    def get_parents(self) -> list[str]:
+        """`Returns a list[str] containing the parents.`"""
+        ...
+
+class DAGChain:
+    """`DAG Chain Class`"""
+    def __init__(self) -> None:
+        """`Create a Dag Chain`"""
+        ...
+    
+    def add_transaction(self, data: Union[str, bytes], parents: list[str]) -> str:
+        """`Add a transaction to the Dag Chain.`
+        
+        Returns the id of the transaction.
+        """
+        ...
+    
+    def is_valid(self) -> bool:
+        """`Checks if the DAG is valid (No cycles)`
+        
+        Returns True if valid, else False
+        """
+        ...
+    
+    def get_transactions(self) -> list[str]:
+        """`Returns a list of keys (ids) of all available transactions`"""
+        ...
+    
+    def get_transaction(self, id: str) -> Transaction:
+        """`Returns the Transaction if found, else raises ValueError`"""
         ...

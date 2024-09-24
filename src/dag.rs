@@ -1,5 +1,8 @@
-use pyo3::prelude::*;
+use pyo3::{prelude::*, types::{PyBytes, PyString}};
 use std::collections::{HashMap, HashSet};
+use serde::{Serialize, Deserialize};
+use sha2::{Digest, Sha256};
+use serde_json;
 
 #[derive(Debug, Clone)]
 struct DAGInner {
@@ -117,5 +120,165 @@ impl DAG {
 
     fn list_edges(&self) -> Vec<(String, String)> {
         self.dag.list_edges()
+    }
+}
+
+// Actual Transaction based DAG
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+enum DAGDATA {
+    String(String),
+    Bytes(Vec<u8>),
+}
+
+impl DAGDATA {
+    fn to_py_object(&self, py: Python<'_>) -> PyObject {
+        match self {
+            DAGDATA::String(s) => s.to_object(py),
+            DAGDATA::Bytes(b) => PyBytes::new_bound(py, b).to_object(py),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct TransactionInner {
+    id: String,
+    data: DAGDATA,
+    parents: Vec<String>,
+}
+
+impl TransactionInner {
+    fn new(data: PyObject, parents: Vec<String>, py: Python<'_>) -> Result<TransactionInner, std::io::Error> {
+        if let Ok(pystr) = data.downcast_bound::<PyString>(py) {
+            let dat = pystr.to_string_lossy().into_owned();
+            let id = TransactionInner::calculate_id(&DAGDATA::String(dat.clone()), &parents);
+            return Ok(TransactionInner {
+                id,
+                data: DAGDATA::String(dat),
+                parents,
+            });
+        }
+
+        if let Ok(pybytes) = data.downcast_bound::<PyBytes>(py) {
+            let dat = pybytes.as_bytes().to_vec();
+            let id = TransactionInner::calculate_id(&DAGDATA::Bytes(dat.clone()), &parents);
+            return Ok(TransactionInner {
+                id,
+                data: DAGDATA::Bytes(dat),
+                parents,
+            });
+        }
+
+        Err(std::io::Error::new(std::io::ErrorKind::Unsupported, "Only Bytes or String is supported."))
+    }
+
+    fn calculate_id(data: &DAGDATA, parents: &Vec<String>) -> String {
+        let relevant_data = (
+            data,
+            parents,
+        );
+
+        let data_in_string = serde_json::to_string(&relevant_data).unwrap_or_else(|_e| {
+            eprintln!(
+                "Failed to convert Transaction data to Serialized String: {}",
+                _e
+            );
+            std::process::exit(1);
+        });
+
+        let mut hasher = Sha256::new();
+        hasher.update(data_in_string);
+        format!("{:x}", hasher.finalize())
+    }
+}
+
+#[pyclass]
+pub struct DAGChain {
+    transactions: HashMap<String, TransactionInner>,
+}
+
+#[pymethods]
+impl DAGChain {
+    #[new]
+    pub fn new() -> PyResult<DAGChain> {
+        Ok(Self {
+            transactions: HashMap::new(),
+        })
+    }
+
+    pub fn add_transaction(&mut self, data: PyObject, parents: Vec<String>, py: Python<'_>) -> PyResult<String> {
+        let transaction = match TransactionInner::new(data, parents, py) {
+            Ok(t) => t,
+            Err(e) => {
+                eprintln!("Failed to Add Transaction: {}", e);
+                std::process::exit(1);
+            }
+        };
+
+        let id = transaction.id.clone();
+        self.transactions.insert(id.clone(), transaction);
+        Ok(id)
+    }
+
+    pub fn is_valid(&self) -> PyResult<bool> {
+        let mut confirmed = HashSet::new();
+        for transaction in self.transactions.values() {
+            if transaction.parents.is_empty() {
+                confirmed.insert(transaction.id.clone());
+            } else {
+                for parent in &transaction.parents {
+                    if !self.transactions.contains_key(parent) {
+                        return Ok(false);
+                    }
+                    confirmed.insert(transaction.id.clone());
+                }
+            }
+        }
+        Ok(true)
+    }
+
+    pub fn get_transactions(&self) -> PyResult<Vec<String>> {
+        Ok(self.transactions.keys().cloned().collect::<Vec<String>>())
+    }
+
+    pub fn get_transaction(&self, id: &str) -> PyResult<Transaction> {
+        match self.transactions.get(id) {
+            Some(transaction) => {
+                let data: PyObject = Python::with_gil(|py| {
+                    transaction.data.to_py_object(py)
+                });
+
+                return Ok(
+                    Transaction {
+                        id: transaction.id.clone(),
+                        data,
+                        parents: transaction.parents.clone(),
+                    }
+                );
+            },
+            None => Err(pyo3::exceptions::PyValueError::new_err(format!("No transaction with id {} found on the DAG", id))),  // Return an empty list if not found
+        }
+    }
+}
+
+#[pyclass]
+pub struct Transaction {
+    id: String,
+    data: PyObject,
+    parents: Vec<String>,
+}
+
+#[pymethods]
+impl Transaction {
+    pub fn get_data(&self, py: Python<'_>) -> PyResult<PyObject> {
+        Ok(self.data.clone_ref(py))
+    }
+
+    pub fn get_id(&self) -> PyResult<String> {
+        Ok(self.id.clone())
+    }
+
+    pub fn get_parents(&self) -> PyResult<Vec<String>> {
+        Ok(self.parents.clone())
     }
 }
