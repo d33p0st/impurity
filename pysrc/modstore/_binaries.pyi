@@ -3,7 +3,7 @@ Precautions are needed for usage.
 If not a developer, do not use this.
 """
 
-from typing import Literal, Union, Pattern
+from typing import Literal, Union, Pattern, List, Tuple
 
 class Block:
     """# `Not to be called.`"""
@@ -103,11 +103,11 @@ class DAG:
         """`Returns String Representation of the DAG`"""
         ...
     
-    def list_nodes(self) -> list[str]:
+    def list_nodes(self) -> List[str]:
         """`Returns a list of all nodes that are added.`"""
         ...
     
-    def list_edges(self) -> list[tuple[str, str]]:
+    def list_edges(self) -> List[Tuple[str, str]]:
         """`Returns a list of tuple(str, str) representing edges.`"""
         ...
 
@@ -121,7 +121,7 @@ class Transaction:
         """`Returns the Transaction id.`"""
         ...
     
-    def get_parents(self) -> list[str]:
+    def get_parents(self) -> List[str]:
         """`Returns a list[str] containing the parents.`"""
         ...
 
@@ -131,7 +131,7 @@ class DAGChain:
         """`Create a Dag Chain`"""
         ...
     
-    def add_transaction(self, data: Union[str, bytes], parents: list[str]) -> str:
+    def add_transaction(self, data: Union[str, bytes], parents: List[str]) -> str:
         """`Add a transaction to the Dag Chain.`
         
         Returns the id of the transaction.
@@ -145,7 +145,7 @@ class DAGChain:
         """
         ...
     
-    def get_transactions(self) -> list[str]:
+    def get_transactions(self) -> List[str]:
         """`Returns a list of keys (ids) of all available transactions`"""
         ...
     

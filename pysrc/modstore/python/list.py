@@ -1,4 +1,4 @@
-from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic
+from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic, List as basicList, Tuple
 from itertools import chain, combinations
 from collections import Counter, defaultdict
 
@@ -18,7 +18,7 @@ class List(list, Generic[T]):
         """`Return repr(self)`"""
         return super().__repr__()
     
-    def __init__(self, create_from: Union[list[Any], 'List'] = []) -> None:
+    def __init__(self, create_from: Union[basicList[Any], 'List'] = []) -> None:
         """`Create a Modded list or List in general`
         
         ### Params
@@ -255,7 +255,7 @@ class List(list, Generic[T]):
         """
         self[i], self[j] = self[j], self[i]
     
-    def partition(self, predicate: Callable) -> tuple['List', 'List']:
+    def partition(self, predicate: Callable) -> Tuple['List', 'List']:
         """`Partition the List based on some function.`
         
         ### Params

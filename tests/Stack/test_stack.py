@@ -32,3 +32,51 @@ def test_errors():
         stack[0] = 2
     except StackError:
         assert True
+
+def test_sum():
+    stack = Stack()
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    stack.push(4)
+
+    assert stack.sum == 10
+
+    stack.push("hehe")
+    
+    try:
+        sum = stack.sum
+    except StackError:
+        assert True
+
+def test_join():
+    stack = Stack()
+    stack.push(1)
+    stack.push("23")
+    stack.push(4)
+
+    assert stack.joinWith('') == '1234'
+
+def test_infixToPrefix():
+    assert Stack.infixToPrefix("A+B*(C-D)") == "+A*B-CD"
+
+def test_infixToPostfix():
+    assert Stack.infixToPostfix("A+B*(C-D)") == "ABCD-*+"
+
+def test_postfixToInfix():
+    assert Stack.postfixToInfix("ABCD-*+") == "(A+(B*(C-D)))"
+
+def test_prefixToInfix():
+    assert Stack.prefixToInfix("+A*B-CD") == "(A+(B*(C-D)))"
+
+def test_postfixToPrefix():
+    assert Stack.postfixToPrefix("ABCD-*+") == "+A*B-CD"
+
+def test_prefixToPostfix():
+    assert Stack.prefixToPostfix("+A*B-CD") ==  "ABCD-*+"
+
+def test_resolveRomanNumber():
+    assert Stack.resolveRomanNumber("MXCVII") == 1097
+
+def test_generateRomanNumber():
+    assert Stack.generateRomanNumber(1097) == "MXCVII"
