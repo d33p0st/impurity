@@ -1,0 +1,43 @@
+name: Build
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+            fail-fast: false
+            max-parallel: 1
+        
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+            
+            - name: Setup Python v${{ matrix.python-version }}
+              uses: actions/setup-python@v4
+              with:
+                python-version: ${{ matrix.python-version }}
+            
+            - name: Install Rust Toolchain
+              uses: actions-rs/toolchain@v1
+              with:
+                toolchain: stable
+                profile: minimal
+                override: true
+            
+            - name: Install Maturin
+              run: pip install maturin
+            
+            - name: Build Artifact
+              run: maturin build --release
+            
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v3
+              with:
+                path: target/wheels/*.whl
