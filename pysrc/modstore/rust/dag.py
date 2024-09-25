@@ -1,5 +1,5 @@
 from .._binaries import DAG as _dag_inner, DAGChain as _chain_inner, Transaction as _transaction_inner
-from typing import Literal, Union
+from typing import Literal, Union, List, Tuple
 
 import pickle
 
@@ -54,12 +54,12 @@ class DAG:
             return self.dag.to_string()
         
         @property
-        def nodes(self) -> list[str]:
+        def nodes(self) -> List[str]:
             """`Returns a list of added nodes.`"""
             return self.dag.list_nodes()
         
         @property
-        def edges(self) -> list[tuple[str, str]]:
+        def edges(self) -> List[Tuple[str, str]]:
             """`Returns a list of tuple[str, str] representing edges.`"""
             return self.dag.list_edges()
         
@@ -78,7 +78,7 @@ class DAG:
             return self.transaction.get_id()
 
         @property
-        def parents(self) -> list[str]:
+        def parents(self) -> List[str]:
             """`Returns a list[str] containing the parents.`"""
             return self.transaction.get_parents()
         
@@ -95,7 +95,7 @@ class DAG:
             if return_original:
                 try:
                     return DAG.BytesToObject(data)
-                except pickle.UnpicklingError:
+                except (pickle.UnpicklingError, KeyError):
                     return data
 
     class TransactionBased:
@@ -104,7 +104,7 @@ class DAG:
             """`Create a Transaction-Based DAG`"""
             self.dag = _chain_inner()
         
-        def addTransaction(self, data: Union[str, bytes, object], parents: list[str]) -> str:
+        def addTransaction(self, data: Union[str, bytes, object], parents: List[str]) -> str:
             """`Add a Transaction into the DAG`
             
             `data`: data can be any str, bytes or object such as list or dict.
@@ -120,7 +120,7 @@ class DAG:
             return self.dag.is_valid()
         
         @property
-        def transactions(self) -> list[str]:
+        def transactions(self) -> List[str]:
             """`Returns a list of all transactions.`"""
             return self.dag.get_transactions()
         
