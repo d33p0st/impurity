@@ -1,5 +1,6 @@
 [![Unit Tests](https://github.com/d33p0st/modstore/actions/workflows/tests.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/tests.yml)
 [![Build](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml)
+[![Downloads](https://static.pepy.tech/badge/modstore)](https://pepy.tech/project/modstore)
 
 # Overview
 
