@@ -32,7 +32,9 @@ jobs:
                 override: true
             
             - name: Install Maturin
-              run: pip install maturin
+              run: |
+                python -m pip install --upgrade pip
+                pip install maturin
             
             - name: Build Artifact
               run: maturin build --release

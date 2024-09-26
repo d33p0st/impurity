@@ -33,7 +33,7 @@ Let us now Jump to usage now!
 pip install modstore
 ```
 
-##### import the `BlockChain` Class under the rust module of `modstore` package
+##### Import the `BlockChain` Class under the rust module of `modstore` package
 
 ```python
 from modstore.rust import BlockChain

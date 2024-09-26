@@ -29,12 +29,13 @@ class List(list, Generic[T]):
         for value in create_from:
             super().append(value)
     
-    def fillByInput(self, splitby: Union[str, None] = ' ', typecast: Type = int) -> None:
+    def fillByInput(self, splitby: Union[str, None] = ' ', typecast: Type = int, prompt: Union[str, None] = None) -> None:
         """`Reads from the command-line and splits the data based on 'splitby' parameter and typecasts the values if needed into
         given type. Finally, appends to the current List.`
 
         ### Params
         - `splitby`: pattern or str by which the input from the stdin will be split to create a list.
+        - `prompt`: The prompt to the user.
         - `typecast`: The type of the elements to be used. By default it is `int`, which means
         if the method reads `"1 2 3 4 5"` from the stdin, it will create a List as `[1, 2, 3, 4, 5]` where
         elements are of the type `int` (here the input was `str` and it was typecasted to `int`).
@@ -53,7 +54,7 @@ class List(list, Generic[T]):
         and will not be added to the List.
         """
         # split the input data based on `splitby`
-        read_data = input().split(splitby)
+        read_data = input('' if prompt is None else prompt).split(splitby) if splitby != '' else list(input('' if prompt is None else prompt))
 
         # if data is valid, input it to inner
         for part in read_data:
@@ -88,7 +89,7 @@ class List(list, Generic[T]):
         and will not be added to the List.
         """
         # split the string based on `splitby`
-        data = string.split(splitby)
+        data = string.split(splitby) if splitby != '' else list(string)
 
         # if data is valid, input it to inner
         for part in data:
