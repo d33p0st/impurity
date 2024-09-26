@@ -14,6 +14,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
+                python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     
         runs-on: ${{ matrix.os }}
 
@@ -21,7 +22,13 @@ jobs:
             - name: Checkout Code
               uses: actions/checkout@v3
             
-            - name: Run PyTest
-              uses: d33pster/automated-pytest@v2
+            - name: Setup Python v${{ matrix.python-version }}
+              uses: actions/setup-python@v4
               with:
-                Library: "."
+                python-version: ${{ matrix.python-version }}
+            
+            - name: Install PyTest
+              run: pip install pytest
+            
+            - name: Run Test
+              run: pytest
