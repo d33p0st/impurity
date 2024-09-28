@@ -34,9 +34,15 @@ jobs:
               run: pip install .
             
             - name: Run Test
-              run: pytest --cov --cov-report=xml
+              run: pytest --cov --junitxml=junit.xml
             
             - name: Upload results to Codecov
               uses: codecov/codecov-action@v4
+              with:
+                token: ${{ secrets.CODECOV_TOKEN }}
+            
+            - name: Upload test results to codecov
+              if: ${{ !cancelled() }}
+              uses: codecov/test-results-action@v1
               with:
                 token: ${{ secrets.CODECOV_TOKEN }}
