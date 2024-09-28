@@ -4,8 +4,9 @@ class abc:
     def __init__(self):
         pass
 
-    def do_something(self):
-        print("hehe")
+    def do_something(self, a: int, b: int):
+        return a+b
+        
 
 def test_transactions():
     dag: DAG.TransactionBased = DAG('Transaction-Based').create
@@ -25,5 +26,8 @@ def test_transactions():
     assert dag.transaction(id=total[0]).data(True) == "Hehe" and dag.transaction(id=total[0]).id == total[0]
     assert dag.transaction(id=total[1]).data(True) == b"hehe"
     assert dag.transaction(id=total[2]).data(True) == abc
+
+    obj = abc()
+    assert obj.do_something(1, 2) == 3
 
     assert dag.valid

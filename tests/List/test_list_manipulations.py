@@ -38,7 +38,7 @@ def test_rotate():
     assert list.rotate(1, 2) == List([3, 4, 5, 1, 2])
     assert list.rotate(1, 2, 'Back') == List([4, 5, 1, 2, 3])
 
-def checkStack():
+def test_checkStack():
     """`Check conversion to Stack`"""
     list = List([1, 2, 3, 4, 5])
 
