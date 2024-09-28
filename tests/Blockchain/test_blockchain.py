@@ -24,3 +24,6 @@ def test_blockchain():
     assert blockchain.search("string").data(True) == "abcd"
     assert blockchain.search("bytes").data(True) == "xyz".encode()
     assert blockchain.search("class").data(True) == obj3
+
+    obj = obj3()
+    assert obj.add(1, 2) == 3
