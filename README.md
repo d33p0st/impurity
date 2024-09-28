@@ -1,5 +1,6 @@
 [![Unit Tests](https://github.com/d33p0st/modstore/actions/workflows/tests.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/tests.yml)
 [![Build](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml)
+[![codecov](https://codecov.io/gh/d33p0st/modstore/branch/main/graph/badge.svg?token=P27ASL6TGH)](https://codecov.io/gh/d33p0st/modstore)
 [![Downloads](https://static.pepy.tech/badge/modstore)](https://pepy.tech/project/modstore)
 
 # Overview
