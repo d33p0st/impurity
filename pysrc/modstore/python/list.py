@@ -7,7 +7,7 @@ from ..exceptions import TypeCastError
 
 T = TypeVar('T')
 
-class List(list, Generic[T]):
+class List(basicList[T], Generic[T]):
 
     """`Modded List Class`"""
     def __str__(self) -> str:
