@@ -23,7 +23,7 @@
 # description: >- # this means to ignore newlines until "baseurl:"
 #   This Page contains a list of all Projects that I have ever created.
 baseurl: "/modstore" # the subpath of your site, e.g. /blog
-url: "https://d33p0st.in/libraries/" # the base hostname & protocol for your site, e.g. http://example.com
+# url: "https://d33p0st.in/libraries/" # the base hostname & protocol for your site, e.g. http://example.com
 # # twitter_username: jekyllrb
 # github_username:  d33p0st
 
