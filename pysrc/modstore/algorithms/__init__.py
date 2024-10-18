@@ -10,7 +10,8 @@ from .sorting import (
 from .searching import (
     Search,
     SearchObject,
-    search_consistency
+    search_consistency,
+    int_only
 )
 
 __all__ = [
@@ -22,5 +23,6 @@ __all__ = [
     "merge_3",
     "Search",
     "SearchObject",
-    "search_consistency"
+    "search_consistency",
+    "int_only"
 ]

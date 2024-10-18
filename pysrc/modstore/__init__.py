@@ -8,12 +8,13 @@ from .algorithms import (
     Search,
     SearchObject,
     search_consistency,
+    int_only,
     Sort,
     SortObject,
     is_sorted,
     merge,
     merge_3,
-    heapify
+    heapify,
 )
 from .python import (
     List,
@@ -43,6 +44,7 @@ __all__ = [
     "Search",
     "SearchObject",
     "search_consistency",
+    "int_only",
     "Sort",
     "SortObject",
     "is_sorted",

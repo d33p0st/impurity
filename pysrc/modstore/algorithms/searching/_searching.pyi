@@ -7,6 +7,10 @@ def determine_type(iterable: Iterable[T]) -> Union[Type, None]:
     """`Determine type of elements in a iterable.`"""
     ...
 
+def int_only(method: CALLABLE) -> CALLABLE:
+    """`Search Object and Search Class Helper Decorator for performing internal class Checks`"""
+    ...
+
 def search_consistency(method: CALLABLE) -> CALLABLE:
     """`Search Object Class Helper Decorator for performing internal class checks.`"""
     ...

@@ -1,7 +1,7 @@
 
 from typing import Iterable, TypeVar, Callable, Type, Union, Any
 from functools import wraps
-from ...exceptions import IterableNotSet, IterableIsNotSupported, TargetCannotBeFound, TargetNotSet
+from ...exceptions import IterableNotSet, IterableIsNotSupported, TargetCannotBeFound, TargetNotSet, IterableHasUnsupportedTypeValues
 import math
 
 T = TypeVar('T', int, str, float)
@@ -17,6 +17,26 @@ def determine_type(iterable: Iterable[T]) -> Union[Type, None]:
             return object
     
     return first_type
+
+def int_only(method: CALLABLE):
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        # check args
+        for x in args:
+            if isinstance(x, Iterable):
+                for value in x:
+                    if not isinstance(value, int):
+                        raise IterableHasUnsupportedTypeValues(f"Expected <class 'int'> values, found {type(value)}.")
+        
+        # check kwargs
+        for name, value in kwargs:
+            if isinstance(value, Iterable):
+                for x in value:
+                    if not isinstance(x, int):
+                        raise IterableHasUnsupportedTypeValues(f"Expected <class 'int'> values, found {type(value)}.")
+        
+        return method(self, *args, **kwargs)
+    return wrapper
 
 def search_consistency(method: CALLABLE):
     @wraps(method)
@@ -42,7 +62,7 @@ def search_consistency(method: CALLABLE):
         type_of_list = determine_type(getattr(self, 'iterable'))
         if type_of_list and type_of_list is not object:
             if type(getattr(self, 'target')) is not type_of_list:
-                raise TargetCannotBeFound(f"Target cannot be found at any cost. Target type is \'{type(getattr(self, 'target'))}\' and list has \'{type_of_list}\' type elements.")
+                raise TargetCannotBeFound(f"Target cannot be found at any cost. Target type is {type(getattr(self, 'target'))} and list has {type_of_list} type elements.")
         elif type_of_list and type_of_list is object:
             if not getattr(self, '__po__'):
                 raise IterableIsNotSupported("Iterable has object type elements, it might generate errors. If this is intentional, re-run with the `permit_objects` parameter set to True.")
@@ -139,6 +159,7 @@ class Search:
         return -1
 
     @staticmethod
+    @int_only
     def interpolation(iterable: Iterable[int], target: int) -> int:
         low, high = 0, len(iterable) - 1
         
@@ -279,6 +300,7 @@ class SearchObject:
     
     @property
     @search_consistency
+    @int_only
     def interpolation(self) -> int:
         return Search.interpolation(self.iterable, self.target)
     
