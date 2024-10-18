@@ -8,7 +8,7 @@ from ...exceptions import (
     ReversePropertyDeleteError,
     CountingSortError,
     RadixSortError,
-    IterableHasUnsportedTypeValues
+    IterableHasUnsupportedTypeValues
 )
 import heapq
 import threading
@@ -27,7 +27,7 @@ def iis(method: CALLABLE):
         
         for element in getattr(self, 'iterable'):
             if not isinstance(element, str) and not isinstance(element, int) and not isinstance(element, float):
-                raise IterableHasUnsportedTypeValues(f"Iterable has unsupported value type: \'{type(element)}\'. Supported Types: [\'str\', \'int\', \'float\'].")
+                raise IterableHasUnsupportedTypeValues2(f"Iterable has unsupported value type: \'{type(element)}\'. Supported Types: [\'str\', \'int\', \'float\'].")
 
         return method(self, *args, **kwargs)
     return wrapper
