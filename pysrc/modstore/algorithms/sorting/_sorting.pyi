@@ -1,4 +1,4 @@
-from typing import Iterable, Any, Callable, TypeVar, Union, Tuple
+from typing import Iterable, Any, Callable, TypeVar, Union, Tuple, List as basicList
 from ...python import List
 from functools import _Wrapped
 
@@ -16,7 +16,7 @@ def iis(method: CALLABLE) -> CALLABLE:
     """
     ...
 
-def merge(left: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> list[T]:
+def merge(left: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> basicList[T]:
     """`Merge Two sorted lists (supports modstore.python.list.List)`"""
     ...
 
@@ -28,7 +28,7 @@ def is_sorted(arr: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bo
     """`Checks if a list is sorted.`"""
     ...
 
-def merge_3(left: Union[list[T], List[T]], middle: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> list[T]:
+def merge_3(left: Union[list[T], List[T]], middle: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> basicList[T]:
     """`Merge 3 sorted Lists`"""
     ...
 
