@@ -127,7 +127,7 @@ class Search:
         step = int(math.sqrt(n))
         prev = 0
         
-        while Iterable[min(step, n) - 1] < target:
+        while iterable[min(step, n) - 1] < target:
             prev = step
             step += int(math.sqrt(n))
             if prev >= n:
