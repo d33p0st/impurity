@@ -34,6 +34,7 @@ class Search:
     @staticmethod
     def jump(iterable: Iterable[T], target: T) -> int: ...
     @staticmethod
+    @int_only
     def interpolation(iterable: Iterable[int], target: int) -> int: ...
     @staticmethod
     def exponential(iterable: Iterable[T], target: T) -> int: ...
@@ -151,6 +152,7 @@ class SearchObject:
     
     @property
     @search_consistency
+    @int_only
     def interpolation(self) -> int:
         """`Performs an interpolation search on the object to find the target element.`
         
