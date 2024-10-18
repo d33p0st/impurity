@@ -71,7 +71,7 @@ def test_interleave():
     list = List([1, 2, 3, 4 ,5])
 
     assert list.interleave([10, 20, 30, 40, 50]) == List([1, 10, 2, 20, 3, 30, 4, 40, 5, 50])
-    assert list.interleave([10, 20, 30], [70, 80], [100, 300]) == List([1, 10, 70, 100, 2, 20, 80, 300])
+    assert list.interleave([10, 20, 30], [70, 80], [100, 300]) == List([1, 10, 70, 100, 2, 20, 80, 300, 3, 30, 4, 5])
 
 def test_work():
     def even(x: int) -> bool:
