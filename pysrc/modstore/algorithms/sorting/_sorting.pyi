@@ -39,7 +39,7 @@ class Sort:
         ...
     
     @staticmethod
-    def _counting_sort_for_radix(array: Iterable[int], exp: int) -> list[int]:
+    def _counting_sort_for_radix(array: Iterable[int], exp: int) -> basicList[int]:
         """
         Helper function to perform counting sort based on digit represented by exp.
         """

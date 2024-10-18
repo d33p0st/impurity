@@ -392,7 +392,7 @@ class Sort:
         return List(array)
 
     @staticmethod
-    def _counting_sort_for_radix(array: Iterable[int], exp: int) -> list[int]:
+    def _counting_sort_for_radix(array: Iterable[int], exp: int) -> basicList[int]:
         n = len(array)
         output = [0] * n
         count = [0] * 10  # Since digits range from 0 to 9
