@@ -330,9 +330,9 @@ class Sort:
             left = 2 * i + 1
             right = 2 * i + 2
             
-            if left < n and ((reverse and key(arr[left]) > key(arr[largest])) or (not reverse and key(arr[left]) < key(arr[largest]))):
+            if left < n and ((not reverse and key(arr[left]) > key(arr[largest])) or (reverse and key(arr[left]) < key(arr[largest]))):
                 largest = left
-            if right < n and ((reverse and key(arr[right]) > key(arr[largest])) or (not reverse and key(arr[right]) < key(arr[largest]))):
+            if right < n and ((not reverse and key(arr[right]) > key(arr[largest])) or (reverse and key(arr[right]) < key(arr[largest]))):
                 largest = right
             if largest != i:
                 arr[i], arr[largest] = arr[largest], arr[i]
