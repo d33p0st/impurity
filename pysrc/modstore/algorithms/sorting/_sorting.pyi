@@ -16,19 +16,19 @@ def iis(method: CALLABLE) -> CALLABLE:
     """
     ...
 
-def merge(left: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> basicList[T]:
+def merge(left: Union[basicList[T], List[T]], right: Union[basicList[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> basicList[T]:
     """`Merge Two sorted lists (supports modstore.python.list.List)`"""
     ...
 
-def heapify(array: list[T]):
+def heapify(array: basicList[T]):
     """`Transform list into a heap, in-place, in O(len(heap)) time.`"""
     ...
 
-def is_sorted(arr: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> bool:
+def is_sorted(arr: Union[basicList[T], List[T]], key: Callable[[T], Any], reverse: bool) -> bool:
     """`Checks if a list is sorted.`"""
     ...
 
-def merge_3(left: Union[list[T], List[T]], middle: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> basicList[T]:
+def merge_3(left: Union[basicList[T], List[T]], middle: Union[basicList[T], List[T]], right: Union[basicList[T], List[T]], key: Callable[[T], Any], reverse: bool) -> basicList[T]:
     """`Merge 3 sorted Lists`"""
     ...
 

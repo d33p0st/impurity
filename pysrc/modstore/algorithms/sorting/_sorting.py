@@ -1,5 +1,5 @@
 
-from typing import Iterable, Any, Callable, TypeVar, Union, Tuple
+from typing import Iterable, Any, Callable, TypeVar, Union, Tuple, List as basicList
 from functools import wraps
 from ...python import List
 from ...exceptions import (
@@ -27,7 +27,7 @@ def iis(method: CALLABLE):
         
         for element in getattr(self, 'iterable'):
             if not isinstance(element, str) and not isinstance(element, int) and not isinstance(element, float):
-                raise IterableHasUnsupportedTypeValues2(f"Iterable has unsupported value type: \'{type(element)}\'. Supported Types: [\'str\', \'int\', \'float\'].")
+                raise IterableHasUnsupportedTypeValues(f"Iterable has unsupported value type: {type(element)}. Supported Types: [<class \'str\'>, <class \'int\'>, <class \'float\'>].")
 
         return method(self, *args, **kwargs)
     return wrapper
@@ -213,8 +213,8 @@ class SortObject:
     def three_way_merge_sort(self) -> List[T]:
         return Sort.three_way_merge_sort(self.iterable, self.key, self.reverse)
 
-def merge(left: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> list[T]:
-    result: list[T] = []
+def merge(left: Union[basicList[T], List[T]], right: Union[basicList[T], List[T]], key: Callable[[T], Any] = lambda x: x, reverse: bool = False) -> basicList[T]:
+    result: basicList[T] = []
     i = j = 0
     while i < len(left) and j < len(right):
         if (reverse and key(left[i]) > key(right[j])) or (not reverse and key(left[i]) < key(right[j])):
@@ -228,17 +228,17 @@ def merge(left: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Ca
     result.extend(right[j:])
     return result
 
-def heapify(array: list[T]):
+def heapify(array: basicList[T]):
     heapq.heapify(array)
 
-def is_sorted(arr: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> bool:
+def is_sorted(arr: Union[basicList[T], List[T]], key: Callable[[T], Any], reverse: bool) -> bool:
     for i in range(len(arr) - 1):
         if (reverse and key(arr[i]) < key(arr[i + 1])) or (not reverse and key(arr[i]) > key(arr[i + 1])):
             return False
     return True
 
-def merge_3(left: Union[list[T], List[T]], middle: Union[list[T], List[T]], right: Union[list[T], List[T]], key: Callable[[T], Any], reverse: bool) -> list[T]:
-    result: list[T] = []
+def merge_3(left: Union[basicList[T], List[T]], middle: Union[basicList[T], List[T]], right: Union[basicList[T], List[T]], key: Callable[[T], Any], reverse: bool) -> basicList[T]:
+    result: basicList[T] = []
     while left or middle or right:
         min_vals = [item for item in [left[0] if left else None, middle[0] if middle else None, right[0] if right else None] if item is not None]
         if reverse:
