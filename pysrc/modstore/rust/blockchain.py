@@ -61,7 +61,7 @@ class BlockChain:
         (i.e., a string of `0`s). This process involves trial and error, and the number of iterations needed 
         depends on the difficulty level.
 
-        `time`: This parameter sets the timezone of the timestamp to be used in each block.
+        `timezone`: This parameter sets the timezone of the timestamp to be used in each block.
         This parameter takes literals ['UTC', 'IST'] or `"HH:MM:SS"` to be added to UTC to
         get the desired timezone.
 

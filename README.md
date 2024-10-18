@@ -1,3 +1,4 @@
+
 [![Unit Tests](https://github.com/d33p0st/modstore/actions/workflows/tests.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/tests.yml)
 [![Build](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml)
 [![codecov](https://codecov.io/gh/d33p0st/modstore/branch/main/graph/badge.svg?token=P27ASL6TGH)](https://codecov.io/gh/d33p0st/modstore)
@@ -5,48 +6,112 @@
 
 # Overview
 
-`modstore` brings about the speed python lacked while implementing complex `Data Structures`. `modstore` upgrades pre-existing `Data Structures` to the point you can laid back and use `pre-built` complex functions. While still keeping the base Structures, `modstore` introduces better and improves ones such as `BlockChain`, `DAG` and much more.
+`modstore` brings the speed python lacked while implementing complex data structures. Leveraging `Rust's` speed, `modstore` brings custom data structures to decrease processing time. Apart from that, `modstore` offers upgraded built-in data structures such as `list`, `dict`, `tuple` and a few new ones like `stack`.
 
-Leveraging `Rust`'s speed and safety, new `Data Structures` are lightning fast and gives you the comfortability of using them via `Python`.
+`modstore` started as a data structure library but now also contains algorithms such as sorting and searching.
 
 ## Features
 
-`modstore` provides a ton of data structures to mess around with.
+`modstore` currently offers the following data structures and algorithms to make your day an easy one:
 
-`Categories:`
+> **For documentation on a particular topic, click on the topic.**
 
-- Rust
+> **The docs for few topics are still under works, The code itself has docstring(s) in them for ease of use.**
 
-  - [BlockChain](/docs/BlockChain/blockchain.md): Using Rust's performance, create a tamper proof blockchain data structure of your required difficulty. Search through the blockchain and retrieve data in their original form as provided. See docs [here](/docs/BlockChain/blockchain.md).
+> Here are the basic importing structures for all currently available modules.
+> ```python
+> from modstore.python import List, Stack
+> from modstore.rust import BlockChain, DAG
+> from modstore.algorithms.searching import Search, SearchObject
+> from modstore.algorithms.sorting import Sort, SortObject
+> ```
 
-  - [DAG](/docs/DAG/dag.md): Directed Acyclic Graphs is a graph with no cycles, used in certain blockchain variants like [IOTA](https://www.iota.org). Create and manipulate and store Network Like data in DAGs. See docs [here](/docs/DAG/dag.md).
+**Categories**
 
-  - More Coming Soon!
+- [Algorithms](https://d33p0st.in/documentation/libraries/modstore/algorithms/#libraries "Algorithms provided under modstore")
 
-- Python
-  
-  - [Stack](/docs/Stack/stack.md)
-  - [List](/docs/List/list.md)
-  - More Coming Soon!
+  `modstore` contains a hell lot of detailed algorithms.
 
-## Installation
+  Currently available:
 
-Install using pip,
+  - [Searching](https://d33p0st.in/documentation/libraries/modstore/algorithms/searching/#libraries "Searching Algorithms")
+    
+    - Linear Search
+    - Sentinel Linear Search
+    - Binary Search
+    - Meta Binary Search (One Sided Binary Search)
+    - Ubiquitous Binary Search
+    - Ternary Search
+    - Jump Search
+    - Interpolation Search
+    - Exponential Search
+    - Fibonacci search
 
-```sh
-pip install modstore
+  - [Sorting](https://d33p0st.in/documentation/libraries/modstore/algorithms/sorting/#libraries "Sorting Algorithms")
+
+    - Selection Sort
+    - Bubble Sort
+    - Insertion Sort
+    - Merge Sort
+    - Quick Sort
+    - Heap Sort
+    - Counting Sort
+    - Radix Sort
+    - Bucket Sort
+    - Tim Sort
+    - Bingo Sort
+    - Shell Sort
+    - Comb Sort
+    - Pigeonhole Sort
+    - Cycle Sort
+    - Cocktail Sort
+    - Strand Sort
+    - Bitonic Sort
+    - Sleep Sort
+    - Pancake Sort
+    - Bogo Sort
+    - Gnome Sort
+    - Stooge Sort
+    - Tag Sort
+    - Brick Sort
+    - Three Way Merge Sort
+
+- [Rust powered data structures](https://d33p0st.in/documentation/libraries/modstore/rust/#libraries "modstore's rust powered data structures")
+
+  `modstore` offers the following `rust` powered data structures:
+
+  - [BlockChain](https://d33p0st.in/documentation/libraries/modstore/rust#blockchain-docs "BlockChain Documentation"): Using Rust's performance, create tamper proof blockchain data structure of your required difficulty. Search through the blockchain and retrieve data in their original form as provided.
+
+  - [DAG](./rust#dag-docs "DAG Documentation"): Directed Acyclic Graphs are graphs with no cycles, used in certain blockchain variants like [IOTA](https://www.iota.org "IOTA Homepage"). Create, manipulate and store Network like data in DAG ledgers.
+
+- [Upgraded Python built-ins](https://d33p0st.in/documentation/libraries/modstore/builtins/#libraries)
+
+  `modstore` has these upgraded built-ins:
+
+  - [List]
+
+- [New Python data structures](https://d33p0st.in/documentation/libraries/modstore/new/#libraries)
+
+  - [Stack]
+  <!-- - [HashMap] -->
+
+## Install from scratch
+
+> Make sure you have cargo installed (Rust) and VS Build Tools for C++ (for windows)
+
+```bash
+git clone https://github.com/d33p0st/modstore.git
+python -m pip install --upgrade pip
+pip install maturin
+cd modstore
+maturin develop
+pip install .
 ```
-
-## Documentation
-
-For documentation, check out the [docs](/docs/) folder in the repository.
-
-Repository Link for PYPI users. Click [here](https://github.com/d33p0st/modstore)
 
 ## Issues
 
-#### File Bugs in the issue tracker with this template [here](https://github.com/d33p0st/modstore/blob/main/.github/ISSUE_TEMPLATE/bug_report.md).
+Feel free to submit any issues with the BlockChain Class [here](https://github.com/d33p0st/modstore/issues).
 
-#### Feature Requests [here](https://github.com/d33p0st/modstore/blob/main/.github/ISSUE_TEMPLATE/feature_request.md)
+## Pull Requests
 
-#### Other issues [here](https://github.com/d33p0st/modstore/blob/main/.github/ISSUE_TEMPLATE/custom.md)
+Submit pull requests [here](https://github.com/d33p0st/modstore/pulls).
