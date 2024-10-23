@@ -37,7 +37,7 @@ jobs:
                 pip install maturin build
             
             - name: Build Artifact
-              run: python -m build
+              run: maturin build --release
             
             - name: Upload Artifact
               uses: actions/upload-artifact@v3
