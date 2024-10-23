@@ -66,7 +66,6 @@
     - Cycle Sort
     - Cocktail Sort
     - Strand Sort
-    - Bitonic Sort
     - Sleep Sort
     - Pancake Sort
     - Bogo Sort
