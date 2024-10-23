@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "modstore"
-version = "1.0.0"
+version = "1.1.1"
 description = "Basic and Moded data structures with rust backend for speed."
 requires-python = ">=3.8"
 dependencies = ["maturin"]
@@ -25,6 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: POSIX :: Linux",
@@ -39,6 +40,7 @@ module-name = "modstore._binaries"
 include = ["pysrc/**/*.pyi"]
 
 [project.urls]
+Documentation = "https://d33p0st.in/documentation/libraries/modstore/#libraries"
 GitHub = "https://github.com/d33p0st/modstore"
 Pull-Requests = "https://github.com/d33p0st/modstore/pulls"
 Issues = "https://github.com/d33p0st/modstore/pulls"

@@ -1,4 +1,4 @@
-from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic, List as basicList, Tuple
+from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic, List as basicList, Tuple, Iterable
 from itertools import chain, combinations
 from collections import Counter, defaultdict
 
@@ -7,7 +7,7 @@ from ..exceptions import TypeCastError
 
 T = TypeVar('T')
 
-class List(list, Generic[T]):
+class List(basicList[T], Generic[T]):
 
     """`Modded List Class`"""
     def __str__(self) -> str:
@@ -18,7 +18,7 @@ class List(list, Generic[T]):
         """`Return repr(self)`"""
         return super().__repr__()
     
-    def __init__(self, create_from: Union[basicList[Any], 'List'] = []) -> None:
+    def __init__(self, create_from: Union[basicList[Any], 'List', Tuple[Any]] = []) -> None:
         """`Create a Modded list or List in general`
         
         ### Params
@@ -110,10 +110,7 @@ class List(list, Generic[T]):
         
         Returns a Stack
         """
-        stack = Stack()
-        for value in super().__iter__():
-            stack.push(value)
-        return stack
+        return self.convertToStackWithCapacity()
     
     def convertToStackWithCapacity(self, capacity: Union[int, None] = None) -> Stack:
         """`Returns a 'modstore.python.Stack' type with capacity of given value from the current List`
@@ -221,12 +218,30 @@ class List(list, Generic[T]):
         """
         return List(x for x in self if isinstance(x, type))
     
-    def interleave(self, *Lists: Union['List', list]) -> 'List':
+    def interleave(self, *Lists: Union['List', basicList, Tuple]) -> 'List':
         """`Interleave the current list with other lists.`
         
         `NOTE`: This does not modify the current list.
         """
-        return List(chain.from_iterable(zip(self, *Lists)))
+        # function to check if one element is present or not.
+        def check(storage_: List[Union[List, basicList, Tuple]]) -> bool:
+            for l in storage_:
+                if len(l) > 0:
+                    return True
+            
+            return False
+        
+        new = []
+        storage = List([self] + list(Lists))
+        while check(storage):
+            for i in range(storage.length):
+                try:
+                    new.append(storage[i][0])
+                    storage[i] = storage[i][1:]
+                except IndexError:
+                    continue
+        
+        return new
     
     def work(self, func: Callable, store_elements: bool = False) -> 'List':
         """`Apply a function to each element in the list and return a new List.`

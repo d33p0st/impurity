@@ -14,7 +14,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
-                python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+                python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     
         runs-on: ${{ matrix.os }}
 
@@ -34,7 +34,7 @@ jobs:
               run: pip install .
             
             - name: Run Test
-              run: pytest --cov --junitxml=junit.xml
+              run: pytest -v --cov --junitxml=junit.xml
             
             - name: Upload results to Codecov
               uses: codecov/codecov-action@v4
