@@ -62,7 +62,7 @@ class Sort:
     @staticmethod
     def radix_sort(array: Iterable[int], reverse: bool = False) -> List[int]: ...
     @staticmethod
-    def bucket_sort(array: Iterable[T], key: Callable[[T], float] = lambda x: x, reverse: bool = False) -> List[T]: ...
+    def bucket_sort(array: Iterable[int], key: Callable[[int], float] = lambda x: x, reverse: bool = False) -> List[int]: ...
     @staticmethod
     def tim_sort(array: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
     @staticmethod
@@ -72,7 +72,7 @@ class Sort:
     @staticmethod
     def comb_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
     @staticmethod
-    def pigeonhole_sort(iterable: Iterable[T], key: Callable[[T], int] = lambda x: x, reverse: bool = False) -> List[T]: ...
+    def pigeonhole_sort(iterable: Iterable[int], key: Callable[[int], int] = lambda x: x, reverse: bool = False) -> List[int]: ...
     @staticmethod
     def cycle_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
     @staticmethod
@@ -80,9 +80,7 @@ class Sort:
     @staticmethod
     def strand_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
     @staticmethod
-    def bitonic_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
-    @staticmethod
-    def sleep_sort(iterable: Iterable[T], key: Callable[[T], float] = lambda x: x, reverse: bool = False) -> List[T]: ...
+    def sleep_sort(iterable: Iterable[int], key: Callable[[int], float] = lambda x: x, reverse: bool = False) -> List[int]: ...
     @staticmethod
     def pancake_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]: ...
     @staticmethod
@@ -364,7 +362,7 @@ class SortObject:
     
     @property
     @iis
-    def bucket_sort(self) -> List[T]:
+    def bucket_sort(self) -> List[int]:
         """
         `Bucket Sort Algorithm`
 
@@ -373,13 +371,13 @@ class SortObject:
         This version is generalized to sort any type of values, including custom objects, by providing a `key` function.
 
         #### This method uses:
-            - `array (Iterable[Any])`: The array to be sorted (can contain any sortable type).
-            - `key (Callable[[Any], float], optional)`: A function that extracts a numerical value for sorting purposes. 
+            - `array (Iterable[int])`: The array to be sorted (can contain any sortable type).
+            - `key (Callable[[int], float], optional)`: A function that extracts a numerical value for sorting purposes. 
             Defaults to the identity function (`lambda x: x`).
             - `reverse (bool, optional)`: If `True`, sorts in descending order. Defaults to `False`.
 
         #### Returns:
-            - `list[T]`: The sorted List (`modstore.python.list.List`).
+            - `list[int]`: The sorted List (`modstore.python.list.List`).
         
         #### Example:
 
@@ -500,7 +498,7 @@ class SortObject:
     
     @property
     @iis
-    def pigeonhole_sort(self) -> List[T]:
+    def pigeonhole_sort(self) -> List[int]:
         """
         `Pigeonhole Sort Algorithm`
 
@@ -509,13 +507,13 @@ class SortObject:
         for placing the elements into pigeonholes.
 
         #### This method uses:
-            - `array (Iterable[Any])`: The array of any sortable type to be sorted.
-            - `key (Callable[[Any], int], optional)`: A function that extracts an integer value from each element 
+            - `array (Iterable[int])`: The array of any sortable type to be sorted.
+            - `key (Callable[[int], int], optional)`: A function that extracts an integer value from each element 
             for sorting purposes. Defaults to the identity function (`lambda x: x`).
             - `reverse (bool, optional)`: If `True`, sorts in descending order. Defaults to `False`.
 
         #### Returns:
-            - `list[Any]`: The sorted List (`modstore.python.list.List`).
+            - `list[int]`: The sorted List (`modstore.python.list.List`).
 
         #### Example:
 
@@ -609,33 +607,6 @@ class SortObject:
     
     @property
     @iis
-    def bitonic_sort(self) -> List[T]:
-        """
-        `Bitonic Sort Algorithm`
-
-        `Bitonic sort` is a parallel sorting algorithm that recursively sorts bitonic sequences.
-        A bitonic sequence is a sequence that first increases and then decreases. The algorithm
-        repeatedly splits the array into bitonic sequences and merges them.
-
-        #### This method uses:
-            - `array (Iterable[T])`: The array to be sorted.
-            - `key (Callable[[T], any], optional)`: A function that extracts a comparison key from each element. Defaults to the identity function.
-            - `reverse (bool, optional)`: If `True`, sorts in descending order. Defaults to `False`.
-
-        #### Returns:
-            - `list[T]`: The sorted List (`modstore.python.list.List`).
-        
-        #### Example:
-
-        ```python
-        >>> obj = SortObject([5, 3, 1, 2, 4])
-        >>> obj.bitonic_sort
-        [1, 2, 3, 4, 5]
-        """
-        ...
-    
-    @property
-    @iis
     def pancake_sort(self) -> List[T]:
         """
         `Pancake Sort Algorithm`
@@ -662,7 +633,7 @@ class SortObject:
     
     @property
     @iis
-    def sleep_sort(self) -> List[T]:
+    def sleep_sort(self) -> List[int]:
         """
         `Sleep Sort Algorithm`
 
@@ -672,8 +643,8 @@ class SortObject:
         version is for demonstration purposes only.
 
         #### This method uses:
-            - `array (Iterable[Any])`: The array to be sorted.
-            - `key (Callable[[Any], int], optional)`: A function that extracts an integer value from the element to determine the sleep duration.
+            - `array (Iterable[int])`: The array to be sorted.
+            - `key (Callable[[int], int], optional)`: A function that extracts an integer value from the element to determine the sleep duration.
             - `reverse (bool, optional)`: If `True`, sorts in descending order. Defaults to `False`.
 
         #### Returns:

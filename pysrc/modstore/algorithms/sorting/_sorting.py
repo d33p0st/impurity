@@ -125,7 +125,7 @@ class SortObject:
     
     @property
     @iis
-    def bucket_sort(self) -> List[T]:
+    def bucket_sort(self) -> List[int]:
         return Sort.bucket_sort(self.iterable, self.key, self.reverse)
     
     @property
@@ -150,7 +150,7 @@ class SortObject:
     
     @property
     @iis
-    def pigeonhole_sort(self) -> List[T]:
+    def pigeonhole_sort(self) -> List[int]:
         return Sort.pigeonhole_sort(self.iterable, self.key, self.reverse)
     
     @property
@@ -170,17 +170,12 @@ class SortObject:
     
     @property
     @iis
-    def bitonic_sort(self) -> List[T]:
-        return Sort.bitonic_sort(self.iterable, self.key, self.reverse)
-    
-    @property
-    @iis
     def pancake_sort(self) -> List[T]:
         return Sort.pancake_sort(self.iterable, self.key, self.reverse)
     
     @property
     @iis
-    def sleep_sort(self) -> List[T]:
+    def sleep_sort(self) -> List[int]:
         return Sort.sleep_sort(self.iterable, self.key, self.reverse)
     
     @property
@@ -317,7 +312,7 @@ class Sort:
             return List(arr)
         pivot = arr[0]
         less = [x for x in arr[1:] if (reverse and key(x) >= key(pivot)) or (not reverse and key(x) <= key(pivot))]
-        greater = [x for x in arr[1:] if (reverse and key(x) < key(pivot)) or (not reverse and key(x)) > key(pivot)]
+        greater = [x for x in arr[1:] if (reverse and key(x) < key(pivot)) or (not reverse and key(x) > key(pivot))]
         return List(Sort.quick_sort(less, key, reverse) + [pivot] + Sort.quick_sort(greater, key, reverse))
 
     
@@ -352,7 +347,7 @@ class Sort:
         if not iterable:
             return List()
         
-        array = list(Iterable)
+        array = list(iterable)
 
         max_val = max(array)
         count = [0] * (max_val + 1)
@@ -415,7 +410,7 @@ class Sort:
         return output
 
     @staticmethod
-    def bucket_sort(array: Iterable[T], key: Callable[[T], float] = lambda x: x, reverse: bool = False) -> List[T]:
+    def bucket_sort(array: Iterable[int], key: Callable[[int], float] = lambda x: x, reverse: bool = False) -> List[int]:
         array = list(array)
         if not array:
             return List()
@@ -516,7 +511,7 @@ class Sort:
         return List(arr)
 
     @staticmethod
-    def pigeonhole_sort(iterable: Iterable[T], key: Callable[[T], int] = lambda x: x, reverse: bool = False) -> List[T]:
+    def pigeonhole_sort(iterable: Iterable[int], key: Callable[[int], int] = lambda x: x, reverse: bool = False) -> List[int]:
         array = list(iterable)
         if not array:
             return []
@@ -610,63 +605,42 @@ class Sort:
 
     @staticmethod
     def strand_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]:
-        def merge(left, right):
+        def merge(list1, list2):
+            """Merge two sorted lists into one sorted list."""
             result = []
-            while left and right:
-                if (reverse and key(left[0]) > key(right[0])) or (not reverse and key(left[0]) < key(right[0])):
-                    result.append(left.pop(0))
+            while list1 and list2:
+                if (key(list1[0]) > key(list2[0])) if reverse else (key(list1[0]) <= key(list2[0])):
+                    result.append(list1.pop(0))
                 else:
-                    result.append(right.pop(0))
-            result.extend(left or right)
+                    result.append(list2.pop(0))
+            result.extend(list1 if list1 else list2)
             return result
 
-        def strand(arr):
-            if not arr:
-                return []
-            result = [arr.pop(0)]
+        def strand(input_list):
+            """Extract a sorted subsequence (strand) from the input list."""
+            sublist = [input_list.pop(0)]
             i = 0
-            while i < len(arr):
-                if (reverse and key(arr[i]) >= key(result[-1])) or (not reverse and key(arr[i]) <= key(result[-1])):
-                    result.append(arr.pop(i))
+            while i < len(input_list):
+                if (key(input_list[i]) <= key(sublist[-1])) if reverse else (key(input_list[i]) >= key(sublist[-1])):
+                    sublist.append(input_list.pop(i))
                 else:
                     i += 1
-            return result
+            return sublist
 
-        arr = list(iterable)
-        result = strand(arr)
-        while arr:
-            result = merge(result, strand(arr))
+        if len(iterable) < 2:
+            return List(iterable)
+        
+        new = iterable[:]
+
+        result = strand(new)  # Get the first strand
+
+        while new:  # Continue until the input list is empty
+            result = merge(result, strand(new))
 
         return List(result)
 
     @staticmethod
-    def bitonic_sort(iterable: Iterable[T], key: Callable[[T], any] = lambda x: x, reverse: bool = False) -> List[T]:
-        arr = list(iterable)
-        
-        def comp_and_swap(a, b, direction):
-            if direction == (key(arr[a]) > key(arr[b])):
-                arr[a], arr[b] = arr[b], arr[a]
-
-        def bitonic_merge(low, cnt, direction):
-            if cnt > 1:
-                k = cnt // 2
-                for i in range(low, low + k):
-                    comp_and_swap(i, i + k, direction)
-                bitonic_merge(low, k, direction)
-                bitonic_merge(low + k, k, direction)
-
-        def bitonic_sort_recursive(low, cnt, direction):
-            if cnt > 1:
-                k = cnt // 2
-                bitonic_sort_recursive(low, k, True)
-                bitonic_sort_recursive(low + k, k, False)
-                bitonic_merge(low, cnt, direction)
-
-        bitonic_sort_recursive(0, len(arr), not reverse)
-        return List(arr)
-
-    @staticmethod
-    def sleep_sort(iterable: Iterable[T], key: Callable[[T], float] = lambda x: x, reverse: bool = False) -> List[T]:
+    def sleep_sort(iterable: Iterable[int], key: Callable[[int], float] = lambda x: x, reverse: bool = False) -> List[int]:
         arr = list(iterable)
         sorted_arr = []
         

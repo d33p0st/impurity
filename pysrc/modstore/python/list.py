@@ -1,4 +1,4 @@
-from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic, List as basicList, Tuple
+from typing import Type, Union, Any, Literal, Callable, TypeVar, Generic, List as basicList, Tuple, Iterable
 from itertools import chain, combinations
 from collections import Counter, defaultdict
 
