@@ -34,7 +34,7 @@ jobs:
               run: pip install .
             
             - name: Run Test
-              run: pytest --cov --junitxml=junit.xml
+              run: pytest -v --cov --junitxml=junit.xml
             
             - name: Upload results to Codecov
               uses: codecov/codecov-action@v4
