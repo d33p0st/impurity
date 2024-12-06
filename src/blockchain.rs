@@ -47,7 +47,13 @@ struct BlockChainInner {
 }
 
 impl BlockInner {
-    fn new(index: usize, data_identifier: String, data: BlockData, previous_hash: String, time_type: TimeType) -> BlockInner {
+    fn new(
+        index: usize, 
+        data_identifier: String, 
+        data: BlockData, 
+        previous_hash: String, 
+        time_type: TimeType
+    ) -> BlockInner {
         let time: DateTime<Utc>;
         match time_type {
             TimeType::IST => {
@@ -57,7 +63,8 @@ impl BlockInner {
                 time = Utc::now();
             },
             TimeType::Custom(hours, minutes, seconds) => {
-                time = Utc::now() + Duration::hours(hours) + Duration::minutes(minutes) + Duration::seconds(seconds);
+                time = Utc::now() + Duration::hours(hours) + Duration::minutes(minutes)
+                    + Duration::seconds(seconds);
             }
         }
 
@@ -119,7 +126,13 @@ impl BlockChainInner {
     }
 
     fn create_genesis(&mut self) {
-        let genesis = BlockInner::new(0, "Genesis".to_string(), BlockData::String("".to_string()), "".to_string(), self.time_type.clone());
+        let genesis = BlockInner::new(
+            0, 
+            "Genesis".to_string(), 
+            BlockData::String("".to_string()), 
+            "".to_string(), 
+            self.time_type.clone()
+        );
         self.chain.push(genesis);
     }
 
@@ -133,7 +146,12 @@ impl BlockChainInner {
 
     fn add_block(&mut self, data_identifier: String, data: BlockData) {
         let prevhash = self.get_latest().hash.clone();
-        let mut block = BlockInner::new(self.chain.len(), data_identifier, data, prevhash, self.time_type.clone());
+        let mut block = BlockInner::new(
+            self.chain.len(),
+            data_identifier, data,
+            prevhash,
+            self.time_type.clone()
+        );
         block.mine(self.difficulty);
         // println!("{} {}" ,block.hash.clone(), block.calculate_hash());
         self.chain.push(block);
@@ -287,6 +305,19 @@ impl BlockChain {
         }
 
         Err(pyo3::exceptions::PyException::new_err(format!("Failed to find {} on the blockchain!", identifier)))
+    }
+
+    fn get_list_of_identifiers(&self) -> PyResult<Vec<String>> {
+        let mut ichain: Vec<String> = Vec::new();
+
+        for block in &self.blockchain.chain {
+            if block.data_identifier == "Genesis".to_string() {
+                continue;
+            }
+            ichain.push(block.data_identifier.clone());
+        }
+
+        Ok(ichain)
     }
 }
 
