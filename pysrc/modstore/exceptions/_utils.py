@@ -1,0 +1,2 @@
+class OverloadError(Exception):
+    pass
