@@ -109,7 +109,7 @@ pip install .
 
 ## Issues
 
-Feel free to submit any issues with the BlockChain Class [here](https://github.com/d33p0st/modstore/issues).
+Feel free to submit any issues [here](https://github.com/d33p0st/modstore/issues).
 
 ## Pull Requests
 
