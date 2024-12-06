@@ -78,6 +78,10 @@ class BlockChain:
     def search(self, identifier: str) -> Block:
         """`Returns a block if found else raises an exception.`"""
         ...
+    
+    def get_list_of_identifiers(self) -> List[str]:
+        """`returns a list of available identifiers`"""
+        ...
 
 class DAG:
     """`DAG class (Directed Acyclic Graph)`"""

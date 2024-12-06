@@ -1,6 +1,6 @@
 from .._binaries import BlockChain as _bc_inner, Block as _b_inner
 
-from typing import Literal, Union, Pattern
+from typing import Literal, Union, Pattern, List
 import pickle
 
 class Block:
@@ -149,6 +149,10 @@ class BlockChain:
     def search(self, identifier: str) -> Block:
         """`Returns a block if found, else raises an Exception`"""
         return Block(self.blockchain.search(identifier))
+
+    def identifiers(self) -> List[str]:
+        """`Returns a list of identifiers`"""
+        return self.blockchain.get_list_of_identifiers()
     
     def __str__(self):
         return self.blockchain.__str__()
