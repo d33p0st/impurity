@@ -20,7 +20,19 @@
 
 > Here are the basic importing structures for all currently available modules.
 > ```python
-> from modstore.python import List, Stack
+> from modstore.python import (
+>   List,
+>   Stack,
+>   HashMap, # HashMap
+>   AutoHashMap, # HashTable
+>   SingleLinkNode, # Singly linked node object
+>   LinkedListOne, # Singly linked list wrapper/creator
+>   LRUCache, # LRU Cache implementation using LinkedListOne.
+>   DoubleLinkNode, # Doubly linked node object
+>   LinkedListTwo, # Doubly linked list wrapper/creator.
+>   MultiLinkNode, # Coming soon
+>   LinkedListMulti, # Coming soon
+> )
 > from modstore.rust import BlockChain, DAG
 > from modstore.algorithms.searching import Search, SearchObject
 > from modstore.algorithms.sorting import Sort, SortObject
