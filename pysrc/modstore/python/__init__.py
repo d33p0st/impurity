@@ -1,6 +1,6 @@
 from .list import List
 from .stack import Stack
-from .hashmap import HashMap
+from .hashmap import HashMap, AutoHashMap
 from .linkedlist import (
     SingleLinkNode,
     LinkedListOne,
@@ -14,6 +14,7 @@ __all__ = [
     "List",
     "Stack",
     "HashMap",
+    "AutoHashMap",
     "SingleLinkNode",
     "LinkedListOne",
     "DoubleLinkNode",

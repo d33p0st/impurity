@@ -25,6 +25,8 @@ class LinkedListError(Exception):
     PRAM_GT_EQ_ZERO = "{} parameter must be an integer and greater than or equal to zero"
     PARAMS_NOT_NONE = "All parameters cannot be None."
 
+class HashMapError(Exception):
+    pass
 
 # all
 __all__ = [
@@ -33,7 +35,8 @@ __all__ = [
     "StackOverFlow",
     "StackUnderFlow",
     "NodeError",
-    "LinkedListError"
+    "LinkedListError",
+    "HashMapError"
 ]
 
 __list__ = [

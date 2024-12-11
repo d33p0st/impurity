@@ -4,7 +4,8 @@ from .python import (
     StackUnderFlow,
     TypeCastError,
     NodeError,
-    LinkedListError
+    LinkedListError,
+    HashMapError
 )
 
 from .algorithms import (
@@ -28,6 +29,7 @@ __all__ = [
     "TypeCastError",
     "NodeError",
     "LinkedListError",
+    "HashMapError",
     "IterableNotSet",
     "KeyPropertyDeleteError",
     "ReversePropertyDeleteError",
