@@ -147,6 +147,7 @@ class hashmap_internal_object(Generic[K, V]):
     - Other types are not supported.
     """
 
+
     ALLOWED: Tuple[type[Mapping], type[Dict], type[Counter], type[defaultdict]]
     _internal: Union[Mapping[K, V], Dict[K, V], Counter[K, V], defaultdict[K ,V]]
     _default: Union[Any, None]
@@ -154,12 +155,12 @@ class hashmap_internal_object(Generic[K, V]):
     def __init__(self, innerobj: Union[Mapping[K, V], Dict[K, V], Counter[K, V], defaultdict[K ,V]], default: Union[Any, None] = None) -> None:
         """create a hashmap_internal_object."""
         ...
-    
+
     @property
     def object(self) -> Union[Mapping[K, V], Dict[K, V], Counter[K, V], defaultdict[K ,V]]:
         """`the internal object '_internal'`"""
         ...
-    
+
     @object.setter
     def object(self, object: Union[Mapping[K, V], Dict[K, V], Counter[K, V], defaultdict[K ,V]]) -> None: ...
     @object.deleter

@@ -20,6 +20,7 @@ from collections import defaultdict, Counter
 from ..exceptions import HashMapError
 import pickle
 import hashlib
+import sys
 
 K = TypeVar('K')
 V = TypeVar('V')
@@ -105,8 +106,9 @@ class hashmap_internal_object(Generic[K, V]):
         self._internal = innerobj
         self._default = default if default else None
     
+    
     @property
-    def object(self) -> Union[Mapping[K, V], Dict[K, V], Counter[K, V], defaultdict[K, V]]:
+    def object(self):
         return self._internal
     
     @object.setter
