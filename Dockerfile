@@ -1,5 +1,5 @@
-# using lightweight python image (3.11:slim)
-FROM python:3.11-slim
+# using python image (3.11)
+FROM python:3.11
 
 # install the required system dependencies
 RUN apt-get update && apt-get install -y build-essential python3-dev && \
