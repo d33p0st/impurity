@@ -1,13 +1,13 @@
 [build-system]
-requires = ["maturin"]
+requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
 name = "modstore"
 version = "3.0.0"
-description = "Basic and Moded data structures with rust backend for speed."
+description = "Basic and Modded data structures with rust backend for speed."
 requires-python = ">=3.8"
-dependencies = ["maturin"]
+dependencies = ["maturin", "tabulate"]
 readme = {file = "README.md", content-type = "text/markdown"}
 license = { file = "LICENSE" }
 authors = [
@@ -43,4 +43,4 @@ include = ["pysrc/**/*.pyi"]
 Documentation = "https://d33p0st.in/documentation/libraries/modstore/#libraries"
 GitHub = "https://github.com/d33p0st/modstore"
 Pull-Requests = "https://github.com/d33p0st/modstore/pulls"
-Issues = "https://github.com/d33p0st/modstore/pulls"
+Issues = "https://github.com/d33p0st/modstore/issues"
