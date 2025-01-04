@@ -503,21 +503,71 @@ class AutoHashMap(Generic[K, E]):
             self._function = function
         
         self._update_according_to_function(old_function, self._function)
+    
+    def _check_list_hash(self, hash: str, to_check: basicList[Any], func: Callable[[E], K]) -> bool:
+        for element in to_check:
+            if func(element) != hash:
+                return False
         
+        return True
+    
+    def _update_list(self, _hasher: Callable, values: basicList[Any], to_update: Dict) -> None:
+        for element in values:
+            _hash = _hasher(element)
+
+            if _hash in to_update:
+                if isinstance(to_update[_hash], basicList):
+                    to_update[_hash].append(element)
+                else:
+                    to_update[_hash] = [to_update[_hash], element]
+            else:
+                to_update[_hash] = element
+        
+        return None
+
     def _update_according_to_function(self, old_function: Union[_hasher, Callable[[E], K], None], new_function: Union[_hasher, Callable[[E], K]]) -> None:
         if old_function is not None:
             new_data = {}
             for value in self.itervalues():
                 if isinstance(value, list):
                     if isinstance(new_function, _hasher):
-                        new_data[new_function.hash(value[0])] = value
+                        # This is a list, all the values might not have
+                        # the same hash values now that the function is 
+                        # changed.
+                        _hash_of_one = new_function.hash(value[0])
+
+                        if self._check_list_hash(_hash_of_one, value, new_function.hash):
+                            new_data[_hash_of_one] = value
+                        else:
+                            self._update_list(new_function.hash, value, new_data)
+                            
                     elif isinstance(new_function, Callable):
-                        new_data[new_function(value[0])] = value
+                        _hash_of_one = new_function(value[0])
+                        if self._check_list_hash(_hash_of_one, value, new_function):
+                            new_data[_hash_of_one] = value
+                        else:
+                            self._update_list(new_function, value, new_data)
                 else:
                     if isinstance(new_function, _hasher):
-                        new_data[new_function.hash(value)] = value
+                        _hash_of_one = new_function.hash(value)
+                        if _hash_of_one not in new_data:
+                            new_data[_hash_of_one] = value
+                        else:
+                            if isinstance(new_data[_hash_of_one], basicList):
+                                new_data[_hash_of_one].append(value)
+                            else:
+                                new_data[_hash_of_one] = [new_data[_hash_of_one], value]
+                        
                     elif isinstance(new_function, Callable):
-                        new_data[new_function(value)] = value
+                        _hash_of_one = new_function(value)
+                        if _hash_of_one not in new_data:
+                            new_data[_hash_of_one] = value
+                        else:
+                            if isinstance(new_data[_hash_of_one], basicList):
+                                new_data[_hash_of_one].append(value)
+                            else:
+                                new_data[_hash_of_one] = [new_data[_hash_of_one], value]
+            
             if len(new_data) > 0:
                 self._inner: hashmap_internal_object[K, Union[E, basicList[E]]] = hashmap_internal_object(new_data)
     
@@ -627,5 +677,3 @@ class AutoHashMap(Generic[K, E]):
             return list(self.itervalues())
         else:
             return list(self._get_flattened_values())
-    
-    

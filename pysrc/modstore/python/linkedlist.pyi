@@ -112,7 +112,7 @@ class LinkedListOne:
     >>> raw_linked_list = some_linked_list.head
     ```
 
-    `This class contains a alot of pre-built method for Singly Linked List operations.`
+    `This class contains a lot of pre-built method for Singly Linked List operations.`
     """
     def __init__(
             self,
@@ -148,7 +148,7 @@ class LinkedListOne:
             next: Union[SingleLinkNode, None] = None,
             node: Union[SingleLinkNode, None] = None,
         ) -> None:
-        """`Add a node at the end of the current list.`
+        """`Add a node at the end of the current linked list.`
         
         This method is different than the `insert_at` or `insert_at_end` method
         and simply adds a node at the end.
@@ -245,7 +245,7 @@ class LinkedListOne:
         To provide **index**, any of the `idx` or `index` can be used.  
         To provide **position** any of the `pos` or `position` can be used.
 
-        `index` or `idx` should be >=0 and < lenght of the list.  
+        `index` or `idx` should be >=0 and < length of the list.  
         `pos` or `position` should >= 1 and <= length of the list.
 
         If none of `idx`, `index` or `pos`, `position` is provided, the last element will be deleted.

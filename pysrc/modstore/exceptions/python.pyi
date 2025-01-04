@@ -3,6 +3,9 @@ from typing import List
 class TypeCastError(Exception):
     """`Cannot TypeCast into given type.`"""
     ...
+class ListError(Exception):
+    """`Generic List Error Exception`"""
+    ...
 class StackOverFlow(Exception):
     """`Stack is Full.`"""
     ...
@@ -26,7 +29,14 @@ class LinkedListError(Exception):
 
 class HashMapError(Exception):
     """`Generic HashMap Error Exception`"""
+    ...
+
+class TreeError(Exception):
+    """`Generic Tree Error Exception`"""
+    ...
+
+class QueueError(Exception):
+    """`Generic Queue Error Exception`"""
+    ...
 
 __all__: List[str]
-__list__: List[str]
-__stack__: List[str]
