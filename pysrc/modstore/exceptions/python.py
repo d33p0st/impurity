@@ -4,6 +4,8 @@
 # typecast error
 class TypeCastError(Exception):
     pass
+class ListError(Exception):
+    pass
 
 # STACK
 # overflow
@@ -28,23 +30,22 @@ class LinkedListError(Exception):
 class HashMapError(Exception):
     pass
 
+class TreeError(Exception):
+    pass
+
+class QueueError(Exception):
+    pass
+
 # all
 __all__ = [
     "TypeCastError",
+    "ListError",
     "StackError",
     "StackOverFlow",
     "StackUnderFlow",
     "NodeError",
     "LinkedListError",
-    "HashMapError"
-]
-
-__list__ = [
-    "TypeCastError"
-]
-
-__stack__ = [
-    "StackError",
-    "StackOverFlow",
-    "StackUnderFlow"
+    "HashMapError",
+    "TreeError",
+    "QueueError",
 ]
