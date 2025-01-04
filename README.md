@@ -1,110 +1,90 @@
+`Badges`
 
 [![Unit Tests](https://github.com/d33p0st/modstore/actions/workflows/tests.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/tests.yml)
 [![Build](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml/badge.svg)](https://github.com/d33p0st/modstore/actions/workflows/generate_wheels.yml)
 [![codecov](https://codecov.io/gh/d33p0st/modstore/branch/main/graph/badge.svg?token=P27ASL6TGH)](https://codecov.io/gh/d33p0st/modstore)
 [![Downloads](https://static.pepy.tech/badge/modstore)](https://pepy.tech/project/modstore)
 
-# Overview
+# Modstore
 
-`modstore` brings the speed python lacked while implementing complex data structures. Leveraging `Rust's` speed, `modstore` brings custom data structures to decrease processing time. Apart from that, `modstore` offers upgraded built-in data structures such as `list`, `dict`, `tuple` and a few new ones like `stack`.
+This is a one stop library for all your data structure and algorithm needs. `Modstore`provides several python and rust (leveraging it's speed and reliability) based data-structures and algorithms. The Data Structures
+offered by `modstore` are custom built and well-written to simulate the
+structure rules.
 
-`modstore` started as a data structure library but now also contains algorithms such as sorting and searching.
+#### Due to increasing code base, A proper README is in the works. For Convenience, all instructions are added in the docstrings of the classes and functions.
 
-## Features
+## Module Pathways for importing.
 
-`modstore` currently offers the following data structures and algorithms to make your day an easy one:
+1. Data Structures
 
-> **For documentation on a particular topic, click on the topic.**
+    ```python
+    from modstore.datastructures import (
+        # HashTable
+        HashMap, # Normal Key-Value Pair Type HashTable.
+        AutoHashMap, # Uses hash function for keys, user provides values.
+        
+        # Built-in upgrade
+        List, # Modified List.
+        
+        # New, Stack
+        Stack, # Actual Stack.
 
-> **The docs for few topics are still under works, The code itself has docstring(s) in them for ease of use.**
+        # New, Queue
+        Queue, # Queue (supports dequeue, circular implementation for definite capacity)
+        PriorityQueue, # (supports dequeue, circular implementation for definite capacity)
+        priority, # A class for extended PriorityQueue customization.
 
-> Here are the basic importing structures for all currently available modules.
-> ```python
-> from modstore.python import (
->   List,
->   Stack,
->   HashMap, # HashMap
->   AutoHashMap, # HashTable
->   SingleLinkNode, # Singly linked node object
->   LinkedListOne, # Singly linked list wrapper/creator
->   LRUCache, # LRU Cache implementation using LinkedListOne.
->   DoubleLinkNode, # Doubly linked node object
->   LinkedListTwo, # Doubly linked list wrapper/creator.
->   MultiLinkNode, # Coming soon
->   LinkedListMulti, # Coming soon
-> )
-> from modstore.rust import BlockChain, DAG
-> from modstore.algorithms.searching import Search, SearchObject
-> from modstore.algorithms.sorting import Sort, SortObject
-> ```
+        # New, Singly Linked List
+        SingleLinkNode, # Node class for Singly Linked List
+        LinkedListOne, # Singly Linked List 
 
-**Categories**
+        # New, LRU Cache (implemented using singly linked list)
+        LRUCache,
 
-- [Algorithms](https://d33p0st.in/documentation/libraries/modstore/algorithms/#libraries "Algorithms provided under modstore")
+        # New, Doubly Linked List
+        DoubleLinkNode, # Node class for doubly linked list
+        LinkedListTwo, # Doubly Linked List
 
-  `modstore` contains a hell lot of detailed algorithms.
+        # New, Blockchain
+        BlockChain, # Blockchain data structure
+        Block, # Block class, cannot be initialized, only for internal purposes.
 
-  Currently available:
+        # New, Directed Acyclic Graphs (DAG)
+        DAG,
 
-  - [Searching](https://d33p0st.in/documentation/libraries/modstore/algorithms/searching/#libraries "Searching Algorithms")
-    
-    - Linear Search
-    - Sentinel Linear Search
-    - Binary Search
-    - Meta Binary Search (One Sided Binary Search)
-    - Ubiquitous Binary Search
-    - Ternary Search
-    - Jump Search
-    - Interpolation Search
-    - Exponential Search
-    - Fibonacci search
+        # Coming soon
+        MultiLinkNode, # node class for multi nodes
+        LinkedListMulti, # Multi linked list
+        BinaryNode, # Node class for Binary Tree
+        BinaryTree, # BinaryTree class.
+    )
+    ```
+2. Algorithms
 
-  - [Sorting](https://d33p0st.in/documentation/libraries/modstore/algorithms/sorting/#libraries "Sorting Algorithms")
+    ```python
+    from modstore.algorithms.searching import (
+        Search, # A class that contains static methods for searching
+        SearchObject, # A class to define one object that can be searched using different algorithms,
+    )
 
-    - Selection Sort
-    - Bubble Sort
-    - Insertion Sort
-    - Merge Sort
-    - Quick Sort
-    - Heap Sort
-    - Counting Sort
-    - Radix Sort
-    - Bucket Sort
-    - Tim Sort
-    - Bingo Sort
-    - Shell Sort
-    - Comb Sort
-    - Pigeonhole Sort
-    - Cycle Sort
-    - Cocktail Sort
-    - Strand Sort
-    - Sleep Sort
-    - Pancake Sort
-    - Bogo Sort
-    - Gnome Sort
-    - Stooge Sort
-    - Tag Sort
-    - Brick Sort
-    - Three Way Merge Sort
+    from modstore.algorithms.sorting import (
+        Sort, # A class that contains static methods for sorting
+        SortObject, # A class to define one object that can be sorted using different algorithms.
+    )
+    ```
+3. Prototype for [modkit](https://pypi.org/project/modkit/).
 
-- [Rust powered data structures](https://d33p0st.in/documentation/libraries/modstore/rust/#libraries "modstore's rust powered data structures")
+    `modkit` is a new lib for programming tools, got more than `51k` downloads in the first week. The prototype for the same can be found under:
 
-  `modstore` offers the following `rust` powered data structures:
+    ```python
+    from modstore.tools import (
+        classtools, # aliased as override in modkit
 
-  - [BlockChain](https://d33p0st.in/documentation/libraries/modstore/rust#blockchain-docs "BlockChain Documentation"): Using Rust's performance, create tamper proof blockchain data structure of your required difficulty. Search through the blockchain and retrieve data in their original form as provided.
+        CustomBoolean, # aliased as Possibility in modkit
 
-  - [DAG](./rust#dag-docs "DAG Documentation"): Directed Acyclic Graphs are graphs with no cycles, used in certain blockchain variants like [IOTA](https://www.iota.org "IOTA Homepage"). Create, manipulate and store Network like data in DAG ledgers.
-
-- [Upgraded Python built-ins](https://d33p0st.in/documentation/libraries/modstore/builtins/#libraries)
-
-  `modstore` has these upgraded built-ins:
-
-  - [List]
-
-- [New Python data structures](https://d33p0st.in/documentation/libraries/modstore/new/#libraries)
-
-  - [Stack]
-  <!-- - [HashMap] -->
+        Property, # aliased as the same name in modkit.
+    )
+    ```
 
 ## Install from scratch
 
