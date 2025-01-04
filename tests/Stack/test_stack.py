@@ -5,18 +5,18 @@ def test_Stack():
     stack = Stack()
     stack.push(1)
     stack.push(2)
-    garbage = stack.pop
+    garbage = stack.pop()
     stack.push(2)
     stack.push(3)
 
     assert stack.peek == 3
     assert garbage == 2
-    assert stack == Stack([1, 2, 3])
-    assert stack == Stack(List([1, 2, 3]))
-    assert stack == Stack({1: "", 2: "", 3: ""})
+    assert stack == Stack(create_from=[1, 2, 3])
+    assert stack == Stack(create_from=List([1, 2, 3]))
+    assert stack == Stack(create_from={1: "", 2: "", 3: ""})
 
 def test_errors():
-    stack = Stack([1, 2, 3, 4, 5])
+    stack = Stack(create_from=[1, 2, 3, 4, 5])
 
     try:
         a = stack[0]
@@ -76,7 +76,7 @@ def test_prefixToPostfix():
     assert Stack.prefixToPostfix("+A*B-CD") ==  "ABCD-*+"
 
 def test_resolveRomanNumber():
-    assert Stack.resolveRomanNumber("MXCVII") == 1097
+    assert Stack.resolveFromRomanNumber("MXCVII") == 1097
 
 def test_generateRomanNumber():
-    assert Stack.generateRomanNumber(1097) == "MXCVII"
+    assert Stack.convertToRomanNumber(1097) == "MXCVII"
